@@ -1,19 +1,17 @@
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import 'react-native-reanimated';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-try {
-  SplashScreen.preventAutoHideAsync();
-} catch (e) {
-  console.warn('SplashScreen.preventAutoHideAsync error:', e);
-}
+SplashScreen.preventAutoHideAsync().catch(() => {
+  // In case of an error, we catch it so it doesn't crash the app.
+});
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
     "Jakarta-ExtraBold": require("../assets/fonts/PlusJakartaSans-ExtraBold.ttf"),
     "Jakarta-ExtraLight": require("../assets/fonts/PlusJakartaSans-ExtraLight.ttf"),
@@ -23,20 +21,33 @@ export default function RootLayout() {
     "Jakarta-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
   });
 
+  const [appIsReady, setAppIsReady] = useState(false);
+
   useEffect(() => {
-    async function hideSplashScreen() {
-      if (loaded) {
-        try {
+    async function prepare() {
+      try {
+        if (fontsLoaded) {
+          // If fonts are loaded, set the app as ready.
+          setAppIsReady(true);
+          // Hide the splash screen after everything is loaded.
           await SplashScreen.hideAsync();
-        } catch (e) {
-          console.warn('SplashScreen.hideAsync error:', e);
         }
+      } catch (e) {
+        console.warn(e);
       }
     }
-    hideSplashScreen();
-  }, [loaded]);
 
-  if (!loaded) {
+    prepare();
+  }, [fontsLoaded]);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      // This ensures the splash screen is hidden once the layout is rendered.
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" color="#0000ff" />
@@ -45,9 +56,11 @@ export default function RootLayout() {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      <Stack.Screen name="+not-found" />
-    </Stack>
+    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" />
+      </Stack>
+    </View>
   );
 }
