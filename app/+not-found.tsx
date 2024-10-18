@@ -7,6 +7,7 @@ export default function NotFoundScreen() {
     <>
       <Stack.Screen options={{ title: "Oops!" }} />
       <View style={styles.container}>
+        <Image source={require('../assets/images/404-animation.png')} style={styles.splashImage} />
         <MaterialIcons name="error-outline" size={80} color="#ff6b6b" />
         <Text style={styles.title}>Page Not Found</Text>
         <Text style={styles.message}>
@@ -27,6 +28,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20,
     backgroundColor: "#f9f9f9",
+  },
+  splashImage: {
+    width: 300,
+    height: 180,
+    marginBottom: 20,
   },
   title: {
     fontSize: 32,

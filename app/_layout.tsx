@@ -1,8 +1,8 @@
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useCallback, useEffect, useState } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { useEffect, useCallback, useState } from 'react';
+import { View, ActivityIndicator, Image, StyleSheet } from 'react-native';
 import 'react-native-reanimated';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -29,8 +29,6 @@ export default function RootLayout() {
         if (fontsLoaded) {
           // If fonts are loaded, set the app as ready.
           setAppIsReady(true);
-          // Hide the splash screen after everything is loaded.
-          await SplashScreen.hideAsync();
         }
       } catch (e) {
         console.warn(e);
@@ -49,7 +47,8 @@ export default function RootLayout() {
 
   if (!appIsReady) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.splashContainer}>
+        <Image source={require('../assets/images/splash.png')} style={styles.splashImage} />
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
@@ -64,3 +63,17 @@ export default function RootLayout() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  splashContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  splashImage: {
+    width: 200,
+    height: 200,
+    marginBottom: 20,
+  },
+});
