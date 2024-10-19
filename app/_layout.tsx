@@ -6,12 +6,11 @@ import { View, ActivityIndicator, Image, StyleSheet } from 'react-native';
 import 'react-native-reanimated';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync().catch(() => {
-  // In case of an error, we catch it so it doesn't crash the app.
-});
+SplashScreen.preventAutoHideAsync();
+
 
 export default function RootLayout() {
-  const [fontsLoaded] = useFonts({
+  const [loaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
     "Jakarta-ExtraBold": require("../assets/fonts/PlusJakartaSans-ExtraBold.ttf"),
     "Jakarta-ExtraLight": require("../assets/fonts/PlusJakartaSans-ExtraLight.ttf"),
@@ -24,19 +23,14 @@ export default function RootLayout() {
   const [appIsReady, setAppIsReady] = useState(false);
 
   useEffect(() => {
-    async function prepare() {
-      try {
-        if (fontsLoaded) {
-          // If fonts are loaded, set the app as ready.
-          setAppIsReady(true);
-        }
-      } catch (e) {
-        console.warn(e);
-      }
+    if (loaded) {
+      SplashScreen.hideAsync();
     }
+  }, [loaded]);
 
-    prepare();
-  }, [fontsLoaded]);
+  if (!loaded) {
+    return null;
+  }
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
@@ -48,7 +42,7 @@ export default function RootLayout() {
   if (!appIsReady) {
     return (
       <View style={styles.splashContainer}>
-        <Image source={require('../assets/images/splash.png')} style={styles.splashImage} />
+        {/* <Image source={require('../assets/images/splash.png')} style={styles.splashImage} /> */}
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
     );
