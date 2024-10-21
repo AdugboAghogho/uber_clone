@@ -33,6 +33,7 @@ export default function RootLayout() {
   }
 
   
+
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       // This ensures the splash screen is hidden once the layout is rendered.
