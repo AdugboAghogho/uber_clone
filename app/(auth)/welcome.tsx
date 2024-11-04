@@ -1,6 +1,6 @@
 import { router } from "expo-router";
 import { useRef, useState } from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Image, Text, TouchableOpacity, View, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Swiper from "react-native-swiper";
 
@@ -14,42 +14,34 @@ const Home = () => {
   const isLastSlide = activeIndex === onboarding.length - 1;
 
   return (
-    <SafeAreaView className="flex h-full items-center justify-between bg-white">
+    <SafeAreaView style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          router.replace({ pathname: "/(auth)/sign-up" });
+          router.replace({ pathname: "(auth)/sign-up" }); // Fixed the typo and corrected the path
         }}
-        className="w-full flex justify-end items-end p-5"
+        style={styles.skipButton}
       >
-        <Text className="text-black text-md font-JakartaBold">Skip</Text>
+        <Text style={styles.skipText}>Skip</Text>
       </TouchableOpacity>
 
       <Swiper
         ref={swiperRef}
         loop={false}
-        dot={
-          <View className="w-[32px] h-[4px] mx-1 bg-[#E2E8F0] rounded-full" />
-        }
-        activeDot={
-          <View className="w-[32px] h-[4px] mx-1 bg-[#0286FF] rounded-full" />
-        }
+        dot={<View style={styles.dot} />}
+        activeDot={<View style={styles.activeDot} />}
         onIndexChanged={(index) => setActiveIndex(index)}
       >
         {onboarding.map((item) => (
-          <View key={item.id} className="flex items-center justify-center p-5">
+          <View key={item.id} style={styles.slide}>
             <Image
               source={item.image}
-              className="w-full h-[300px]"
+              style={styles.image}
               resizeMode="contain"
             />
-            <View className="flex flex-row items-center justify-center w-full mt-10">
-              <Text className="text-black text-3xl font-bold mx-10 text-center">
-                {item.title}
-              </Text>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>{item.title}</Text>
             </View>
-            <Text className="text-md font-JakartaSemiBold text-center text-[#858585] mx-10 mt-3">
-              {item.description}
-            </Text>
+            <Text style={styles.description}>{item.description}</Text>
           </View>
         ))}
       </Swiper>
@@ -58,13 +50,82 @@ const Home = () => {
         title={isLastSlide ? "Get Started" : "Next"}
         onPress={() =>
           isLastSlide
-            ? router.replace({ herf: "(auth)/sign-up" })
+            ? router.replace({ pathname: "(auth)/sign-up" }) // Fixed the typo and corrected the path
             : swiperRef.current?.scrollBy(1)
         }
-        className="w-11/12 mt-10 mb-5"
+        style={styles.button}
       />
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+    backgroundColor: "white",
+  },
+  skipButton: {
+    width: "100%",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    padding: 20,
+  },
+  skipText: {
+    color: "black",
+    fontSize: 16,
+    fontWeight: "700",
+  },
+  dot: {
+    width: 32,
+    height: 4,
+    marginHorizontal: 4,
+    backgroundColor: "#E2E8F0",
+    borderRadius: 9999,
+  },
+  activeDot: {
+    width: 32,
+    height: 4,
+    marginHorizontal: 4,
+    backgroundColor: "#0286FF",
+    borderRadius: 9999,
+  },
+  slide: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+  },
+  image: {
+    width: "100%",
+    height: 300,
+  },
+  titleContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    width: "100%",
+    marginTop: 20,
+  },
+  title: {
+    color: "black",
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginHorizontal: 20,
+  },
+  description: {
+    fontSize: 16,
+    color: "#858585",
+    textAlign: "center",
+    marginHorizontal: 20,
+    marginTop: 10,
+    fontWeight: "600",
+  },
+  button: {
+    width: "90%",
+    alignSelf: "center",
+    marginVertical: 20,
+  },
+});
 
 export default Home;

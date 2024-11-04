@@ -51,7 +51,7 @@ export default function RootLayout() {
           <Stack.Screen name="(root)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
-      // </ClerkLoaded>
-    // </ClerkProvider>
+       </ClerkLoaded>
+    </ClerkProvider>
   );
 }
