@@ -8,6 +8,12 @@ import { LogBox } from "react-native";
 import './global.css';
 
 import { tokenCache } from "@/lib/auth";
+import { Slot } from "expo-router";
+
+// Import your global CSS file
+import "../global.css";
+
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -56,3 +62,4 @@ export default function RootLayout() {
     </ClerkProvider>
   );
 }
+export { Slot };
