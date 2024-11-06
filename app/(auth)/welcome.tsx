@@ -51,7 +51,7 @@ const Home = () => {
         onPress={() =>
           isLastSlide
             ? router.replace({ pathname: "(auth)/sign-up" }) // Fixed the typo and corrected the path
-            : swiperRef.current?.scrollBy(1)
+            : swiperRef.current?.scrollBy(+1)
         }
         style={styles.button}
       />

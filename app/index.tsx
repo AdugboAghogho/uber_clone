@@ -1,6 +1,7 @@
 // import { useAuth } from "@clerk/clerk-expo";
 import { useAuth } from "@clerk/clerk-expo/dist/hooks";
 import { Redirect } from "expo-router";
+import 'tailwindcss/tailwind.css';
 
 const Page = () => {
   const { isSignedIn } = useAuth();
