@@ -1,19 +1,13 @@
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Stack, Slot } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "react-native-reanimated";
-import { LogBox } from "react-native";
-import './global.css';
+import { LogBox, View, Image } from "react-native";
+import '../global.css';
 
 import { tokenCache } from "@/lib/auth";
-import { Slot } from "expo-router";
-
-// Import your global CSS file
-import "./global.css";
-
-
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -22,14 +16,14 @@ const publishableKey = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 
 if (!publishableKey) {
   throw new Error(
-    "Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env",
+    "Missing Publishable Key. Please set EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env"
   );
 }
 
 LogBox.ignoreLogs(["Clerk:"]);
 
 export default function RootLayout() {
-  const [loaded] = useFonts({
+  const [fontsLoaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
     "Jakarta-ExtraBold": require("../assets/fonts/PlusJakartaSans-ExtraBold.ttf"),
     "Jakarta-ExtraLight": require("../assets/fonts/PlusJakartaSans-ExtraLight.ttf"),
@@ -39,27 +33,55 @@ export default function RootLayout() {
     "Jakarta-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
   });
 
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
+  const [isReady, setIsReady] = useState(false);
 
-  if (!loaded) {
-    return null;
+  useEffect(() => {
+    async function prepare() {
+      try {
+        if (fontsLoaded) {
+          // All fonts and other necessary assets are loaded.
+          setIsReady(true);
+        }
+      } catch (e) {
+        console.warn(e);
+      }
+    }
+    prepare();
+  }, [fontsLoaded]);
+
+  // Handle the hiding of SplashScreen once everything is loaded
+  const onLayoutRootView = useCallback(async () => {
+    if (isReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [isReady]);
+
+  if (!isReady) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff' }}>
+        <Image
+          source={require('../assets/images/splash.png')}
+          style={{ width: 200, height: 200 }}
+          resizeMode="contain"
+        />
+      </View>
+    );
   }
 
   return (
     <ClerkProvider tokenCache={tokenCache} publishableKey={publishableKey}>
       <ClerkLoaded>
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="(root)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-       </ClerkLoaded>
+        <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            <Stack.Screen name="(root)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+        </View>
+      </ClerkLoaded>
     </ClerkProvider>
   );
 }
+
 export { Slot };
