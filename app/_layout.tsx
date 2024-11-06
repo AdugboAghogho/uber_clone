@@ -11,7 +11,7 @@ import { tokenCache } from "@/lib/auth";
 import { Slot } from "expo-router";
 
 // Import your global CSS file
-import "../global.css";
+import "./global.css";
 
 
 
