@@ -53,7 +53,7 @@ const Home = () => {
             ? router.replace({ pathname: "(auth)/sign-up" }) // Fixed the typo and corrected the path
             : swiperRef.current?.scrollBy(1)
         }
-        style={styles.button}
+        className="w-[80%] mt-10 mb-10 ml-[3rem] "
       />
     </SafeAreaView>
   );
@@ -121,11 +121,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontWeight: "600",
   },
-  button: {
-    width: "90%",
-    alignSelf: "center",
-    marginVertical: 20,
-  },
+
 });
 
 export default Home;
