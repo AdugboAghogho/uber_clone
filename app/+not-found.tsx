@@ -5,6 +5,7 @@ import '../global.css';
 
 
 
+
 export default function NotFoundScreen() {
   return (
     <>
