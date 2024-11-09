@@ -1,5 +1,5 @@
-// import { useAuth } from "@clerk/clerk-expo";
-import { useAuth } from "@clerk/clerk-expo/dist/hooks";
+import { useAuth } from "@clerk/clerk-expo";
+// import { useAuth } from "@clerk/clerk-expo/dist/hooks";
 import { Redirect } from "expo-router";
 import '../global.css';
 
