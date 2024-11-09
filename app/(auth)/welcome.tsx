@@ -53,7 +53,7 @@ const Home = () => {
             ? router.replace({ pathname: "(auth)/sign-up" }) // Fixed the typo and corrected the path
             : swiperRef.current?.scrollBy(1)
         }
-        className="w-[79%] mt-10 mb-11 ml-[2.7rem] "
+        className="w-[90%] mt-10 mb-11 ml-[1rem] mr-[1rem]"
       />
     </SafeAreaView>
   );
