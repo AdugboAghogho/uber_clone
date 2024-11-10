@@ -1,11 +1,12 @@
 import { ClerkLoaded, ClerkProvider } from "@clerk/clerk-expo";
 import { useFonts } from "expo-font";
-import { Stack, Slot } from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 import "react-native-reanimated";
-import { LogBox, View, Image } from "react-native";
-import '../global.css';
+import { LogBox, View, Image, Text } from "react-native";
+import { images } from "@/constants";
+
 
 import { tokenCache } from "@/lib/auth";
 
@@ -23,6 +24,7 @@ if (!publishableKey) {
 LogBox.ignoreLogs(["Clerk:"]);
 
 export default function RootLayout() {
+  const [isReady, setIsReady] = useState(false);
   const [fontsLoaded] = useFonts({
     "Jakarta-Bold": require("../assets/fonts/PlusJakartaSans-Bold.ttf"),
     "Jakarta-ExtraBold": require("../assets/fonts/PlusJakartaSans-ExtraBold.ttf"),
@@ -33,13 +35,11 @@ export default function RootLayout() {
     "Jakarta-SemiBold": require("../assets/fonts/PlusJakartaSans-SemiBold.ttf"),
   });
 
-  const [isReady, setIsReady] = useState(false);
-
   useEffect(() => {
     async function prepare() {
       try {
         if (fontsLoaded) {
-          // All fonts and other necessary assets are loaded.
+          // All fonts and assets are loaded
           setIsReady(true);
         }
       } catch (e) {
@@ -49,7 +49,6 @@ export default function RootLayout() {
     prepare();
   }, [fontsLoaded]);
 
-  // Handle the hiding of SplashScreen once everything is loaded
   const onLayoutRootView = useCallback(async () => {
     if (isReady) {
       await SplashScreen.hideAsync();
@@ -58,12 +57,10 @@ export default function RootLayout() {
 
   if (!isReady) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffffff' }}>
-        <Image
-          source={require('../assets/images/splash.png')}
-          style={{ width: 200, height: 200 }}
-          resizeMode="contain"
-        />
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#0286FF" }}>
+        <Text className=" text-[5rem] font-extrabold font-Racing-Sans-One text-white">Ryde</Text>
+        {/* <Image  source= {("./")}/> */}
+        {/* <Image  source={images.signUpCar} className="w-full h-[5rem]"/> */}
       </View>
     );
   }
@@ -83,5 +80,3 @@ export default function RootLayout() {
     </ClerkProvider>
   );
 }
-
-export { Slot };
