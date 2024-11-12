@@ -14,6 +14,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
+
 // import GoogleTextInput from "@/components/GoogleTextInput";
 // import Map from "@/components/Map";
 // import RideCard from "@/components/RideCard";
