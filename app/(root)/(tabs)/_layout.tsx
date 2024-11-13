@@ -1,7 +1,6 @@
 import { Tabs } from "expo-router";
 import { Image, ImageSourcePropType, View } from "react-native";
 
-
 import { icons } from "@/constants";
 
 const TabIcon = ({
@@ -15,13 +14,13 @@ const TabIcon = ({
     className={`flex flex-row justify-center items-center rounded-full ${focused ? "bg-general-300" : ""}`}
   >
     <View
-      className={`rounded-full w-[5rem] h-[5rem] items-center justify-center ${focused ? "bg-general-400" : ""}`}
+      className={`rounded-full w-[3.5rem] h-[3.5rem] items-center justify-center ${focused ? "bg-general-400" : ""}`}
     >
       <Image
         source={source}
         tintColor="white"
         resizeMode="contain"
-        className="w-[1rem] h-[1rem]"
+        // className="w-20 h-20"
       />
     </View>
   </View>
@@ -42,7 +41,7 @@ export default function Layout() {
           overflow: "hidden",
           marginHorizontal: 20,
           marginBottom: 20,
-          height: 78,
+          height: 98,
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
