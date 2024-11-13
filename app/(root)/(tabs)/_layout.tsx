@@ -1,5 +1,7 @@
 import { Tabs } from "expo-router";
 import { Image, ImageSourcePropType, View } from "react-native";
+import '../global.css';
+
 
 
 import { icons } from "@/constants";
