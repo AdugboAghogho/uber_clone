@@ -75,6 +75,10 @@ const Home = () => {
     router.push("/(root)/find-ride");
   };
 
+  function slice(arg0: number, arg1: number): React.ReactNode {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
@@ -107,7 +111,7 @@ const Home = () => {
           <>
             <View className="flex flex-row items-center justify-between my-5">
               <Text className="text-2xl font-JakartaExtraBold">
-                Welcome {user?.emailAddresses[0].emailAddress}👋
+                Welcome {user?.emailAddresses?.[0]?.emailAddress?.slice(0, 5)}👋
               </Text>
               <TouchableOpacity
                 onPress={handleSignOut}
