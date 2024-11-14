@@ -33,7 +33,7 @@ const Rides = () => {
               <>
                 <Image
                   source={images.noResult}
-                  className="w-40 h-40"
+                  style={{ width: '15rem', height: '15rem' }}
                   alt="No recent rides found"
                   resizeMode="contain"
                 />

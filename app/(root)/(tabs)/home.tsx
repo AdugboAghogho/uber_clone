@@ -2,7 +2,7 @@ import { useUser } from "@clerk/clerk-expo";
 import { useAuth } from "@clerk/clerk-expo";
 import * as Location from "expo-location";
 import { router } from "expo-router";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -12,8 +12,6 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-
 
 // import GoogleTextInput from "@/components/GoogleTextInput";
 // import Map from "@/components/Map";
@@ -75,15 +73,11 @@ const Home = () => {
     router.push("/(root)/find-ride");
   };
 
-  function slice(arg0: number, arg1: number): React.ReactNode {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
         data={recentRides?.slice(0, 5)}
-        
+        // renderItem={({ item }) => <RideCard ride={item} />}
         keyExtractor={(item, index) => index.toString()}
         className="px-5"
         keyboardShouldPersistTaps="handled"
@@ -96,7 +90,7 @@ const Home = () => {
               <>
                 <Image
                   source={images.noResult}
-                  className="w-10 h-10"
+                  style={{ width: 30, height: 30 }}
                   alt="No recent rides found"
                   resizeMode="contain"
                 />
@@ -111,7 +105,7 @@ const Home = () => {
           <>
             <View className="flex flex-row items-center justify-between my-5">
               <Text className="text-2xl font-JakartaExtraBold">
-                Welcome {user?.emailAddresses?.[0]?.emailAddress?.slice(0, 6)}👋
+                Welcome {user?.firstName}👋
               </Text>
               <TouchableOpacity
                 onPress={handleSignOut}

@@ -14,13 +14,13 @@ const TabIcon = ({
     className={`flex flex-row justify-center items-center rounded-full ${focused ? "bg-general-300" : ""}`}
   >
     <View
-      className={`rounded-full w-[4.5rem] h-[4rem] items-center justify-center ${focused ? "bg-general-400" : ""}`}
+      className={`rounded-full w-[4rem] h-[3.7rem] items-center justify-center ${focused ? "bg-general-400" : ""}`}
     >
       <Image
         source={source}
         tintColor="white"
         resizeMode="contain"
-        // className="w-20 h-20"
+        style={{ width: '3rem', height: '3rem' }}
       />
     </View>
   </View>
