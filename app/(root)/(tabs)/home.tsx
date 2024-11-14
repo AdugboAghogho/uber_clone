@@ -96,7 +96,7 @@ const Home = () => {
               <>
                 <Image
                   source={images.noResult}
-                  className="w-40 h-40"
+                  className="w-10 h-10"
                   alt="No recent rides found"
                   resizeMode="contain"
                 />
