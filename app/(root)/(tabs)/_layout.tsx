@@ -14,7 +14,7 @@ const TabIcon = ({
     className={`flex flex-row justify-center items-center rounded-full ${focused ? "bg-general-300" : ""}`}
   >
     <View
-      className={`rounded-full w-[3.5rem] h-[3.5rem] items-center justify-center ${focused ? "bg-general-400" : ""}`}
+      className={`rounded-full w-[4.5rem] h-[4rem] items-center justify-center ${focused ? "bg-general-400" : ""}`}
     >
       <Image
         source={source}
@@ -41,7 +41,7 @@ export default function Layout() {
           overflow: "hidden",
           marginHorizontal: 20,
           marginBottom: 20,
-          height: 98,
+          height: 78,
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",

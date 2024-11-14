@@ -57,7 +57,7 @@ export default function RootLayout() {
 
   if (!isReady) {
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#0286FF" }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "##2B4257" }}>
         <Text className=" text-[5rem] font-extrabold font-Racing-Sans One text-white">Ryde</Text>
         {/* <Image  source= {("./")}/> */}
         {/* <Image  source={images.signUpCar} className="w-full h-[5rem]"/> */}
