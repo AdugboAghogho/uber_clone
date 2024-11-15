@@ -12,7 +12,7 @@ const Chat = () => {
           <Image
             source={images.message}
             alt="message"
-            style={{ width: '100%', height: '10rem' }}
+            style={{ width: '100%', height: 200 }}
             resizeMode="contain"
           />
           <Text className="text-3xl font-JakartaBold mt-3">

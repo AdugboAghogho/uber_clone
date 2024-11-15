@@ -2,7 +2,7 @@ import { useUser } from "@clerk/clerk-expo";
 import { useAuth } from "@clerk/clerk-expo";
 import * as Location from "expo-location";
 import { router } from "expo-router";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -13,9 +13,11 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+
+
 // import GoogleTextInput from "@/components/GoogleTextInput";
 // import Map from "@/components/Map";
-// import RideCard from "@/components/RideCard";
+import RideCard from "@/components/RideCard";
 import { icons, images } from "@/constants";
 import { useFetch } from "@/lib/fetch";
 import { useLocationStore } from "@/store";
@@ -73,11 +75,15 @@ const Home = () => {
     router.push("/(root)/find-ride");
   };
 
+  function slice(arg0: number, arg1: number): React.ReactNode {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
         data={recentRides?.slice(0, 5)}
-        // renderItem={({ item }) => <RideCard ride={item} />}
+        renderItem={({ item }) => <RideCard ride={item} />}
         keyExtractor={(item, index) => index.toString()}
         className="px-5"
         keyboardShouldPersistTaps="handled"
@@ -90,7 +96,7 @@ const Home = () => {
               <>
                 <Image
                   source={images.noResult}
-                  style={{ width: 30, height: 30 }}
+                  style={{ width: 250, height: 250 }}
                   alt="No recent rides found"
                   resizeMode="contain"
                 />
@@ -105,7 +111,7 @@ const Home = () => {
           <>
             <View className="flex flex-row items-center justify-between my-5">
               <Text className="text-2xl font-JakartaExtraBold">
-                Welcome {user?.firstName}👋
+                Welcome {user?.emailAddresses?.[0]?.emailAddress?.slice(0, 6)}👋
               </Text>
               <TouchableOpacity
                 onPress={handleSignOut}
