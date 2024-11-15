@@ -20,7 +20,7 @@ const TabIcon = ({
         source={source}
         tintColor="white"
         resizeMode="contain"
-        style={{ width: 45, height: 45 }}
+        style={{ width: 40, height: 40 }}
       />
     </View>
   </View>
