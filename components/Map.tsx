@@ -91,7 +91,7 @@ const Map = () => {
       showsUserLocation={true}
       userInterfaceStyle="light"
     >
-      {markers.map((marker, index) => (
+      {/* {markers.map((marker, index) => (
         <Marker
           key={marker.id}
           coordinate={{
@@ -130,7 +130,7 @@ const Map = () => {
             strokeWidth={2}
           />
         </>
-      )}
+      )} */}
     </MapView>
   );
 };

@@ -16,7 +16,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 
 // import GoogleTextInput from "@/components/GoogleTextInput";
-// import Map from "@/components/Map";
+import Map from "@/components/Map";
 import RideCard from "@/components/RideCard";
 import { icons, images } from "@/constants";
 import { useFetch } from "@/lib/fetch";
@@ -132,7 +132,7 @@ const Home = () => {
                 Your current location
               </Text>
               <View className="flex flex-row items-center bg-transparent h-[300px]">
-                {/* <Map /> */}
+                <Map />
               </View>
             </>
 
