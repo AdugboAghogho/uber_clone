@@ -84,6 +84,7 @@ const Map = () => {
 
   
 
+
   return (
     <MapView
       provider={PROVIDER_GOOGLE}
